@@ -1,0 +1,83 @@
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(family.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 90%;
+    height: 90vh;   
+}
+.logo{
+    float: left;
+    margin-left: 46px;
+    padding: 0px 38px ;
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+    font-weight: bold;   
+}
+.logo a{
+    text-decoration: none;
+    color: black;
+}
+.nav{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    height: 90px;
+    width: 100%;
+}
+.nav ul{
+    list-style: none;
+    cursor: pointer;
+    float: left;
+    margin-right: 130px;
+}
+.nav ul li{
+    list-style: 0;
+    display: inline-block;
+    color: black;
+    font-family: 'Releway', sans-serif;
+    padding: 15px 15px;
+    font-weight: 400;
+}
+.nav ul li:hover{
+    border-bottom: 3px solid black;
+    transition: all .3s ease;
+}
+.header {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 78%;
+    transform: translate(-50%, -50%);
+}
+.header h1{
+    color: black;
+    text-align: left;
+    font-family: 'Noto Serif JP', sans-serif;
+    font-size: 40px;
+}
+.content-header{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    top: 70%;
+    left: 78%;
+}
+.content-header p{
+    color: black;
+    font-family:'Raleway', sans-serif ;
+    font-size: 14px;
+    text-align: left;
+    color: black;
+}
