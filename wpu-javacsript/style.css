@@ -1,0 +1,63 @@
+body {
+    font-family: sans-serif;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+header img {
+    width: 100px;
+    border-radius: 50%;
+    margin: 10px auto;
+}
+
+main {
+    padding: 10px;
+}
+
+section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+#form-pilihan #dynamic-fields {
+    margin-top: 10px;
+}
+
+#form-pilihan #dynamic-fields label {
+    display: inline-block;
+    width: 100px;
+}
+
+#form-pilihan #dynamic-fields input {
+    width: 200px;
+}
+
+#hasil {
+    text-align: center;
+}
