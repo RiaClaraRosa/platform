@@ -42,6 +42,10 @@ body{
 }
 
 .navbar .navbar span{
-    color: var(--primary);
+    color: #b6895b;
+}
+
+.navbar .navbar-nav a {
+  color  
 }
 
