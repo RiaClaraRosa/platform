@@ -26,23 +26,23 @@ function addDynamicFields(jml) {
 }
 
 // Handle initial form submission
-formAwal.addEventListener('submit', function(event) {
+formAwal.addEventListener('submit', function (event) {
   event.preventDefault();
   const nama = namaInput.value;
   const jml = parseInt(jmlInput.value);
-  
-  namaPilihan.textContent = `Nama: ${nama}`;
-  jmlPilihan.textContent = `Jumlah Pilihan: ${jml}`;
-  
+
+  namaPilihan.innerText = `Nama: ${nama}`;
+  jmlPilihan.innerText = `Jumlah Pilihan: ${jml}`;
+
   // Clear existing dynamic fields and add new ones
   addDynamicFields(jml);
 });
 
-// Handle form submission after text input
-formPilihan.addEventListener('submit', function(event) {
+/// Handle form submission after text input
+formPilihan.addEventListener('submit', function (event) {
   event.preventDefault();
-  const pilihan = []; // Array to store user choices
-  
+  const userChoices = []; // Array to store user choices
+
   // Check if any text input field is empty
   for (let i = 1; i <= jml; i++) {
     const input = document.getElementById(`pilihan${i}`);
@@ -50,23 +50,23 @@ formPilihan.addEventListener('submit', function(event) {
       alert("Harap isi semua pilihan teks!");
       return; // Prevent further execution if not all fields are filled
     }
-    pilihan.push(input.value);
+    userChoices.push(input.value);
   }
-  
+
   // Prompt user for choice format (radio or dropdown)
   const choiceType = prompt("Pilih format pilihan: 'radio' atau 'dropdown'?");
   if (choiceType === "radio") {
     // Create radio buttons
     dynamicFields.innerHTML = "";
-    for (let i = 0; i < pilihan.length; i++) {
+    for (let i = 0; i < userChoices.length; i++) {
       const radio = document.createElement('input');
       radio.type = 'radio';
       radio.name = 'final_pilihan';
-      radio.value = pilihan[i];
-      
+      radio.value = userChoices[i];
+
       const label = document.createElement('label');
-      label.textContent = pilihan[i];
-      
+      label.textContent = userChoices[i];
+
       dynamicFields.appendChild(radio);
       dynamicFields.appendChild(label);
       dynamicFields.appendChild(document.createElement('br'));
@@ -75,37 +75,37 @@ formPilihan.addEventListener('submit', function(event) {
     // Create dropdown
     const select = document.createElement('select');
     select.name = 'final_pilihan';
-    
+
     const defaultOption = document.createElement('option');
     defaultOption.text = "Pilih...";
     defaultOption.value = "";
     select.appendChild(defaultOption);
-    
-    for (const option of pilihan) {
+
+    for (const option of userChoices) {
       const optionElement = document.createElement('option');
       optionElement.text = option;
       optionElement.value = option;
       select.appendChild(optionElement);
     }
-    
+
     dynamicFields.innerHTML = "";
     dynamicFields.appendChild(select);
   } else {
     alert("Format pilihan tidak valid!");
     return; // Prevent further execution if user enters invalid format
   }
-  
+
   // Handle final submission after choosing radio or dropdown option
-  formPilihan.addEventListener('submit', function(event) {
+  formPilihan.addEventListener('submit', function (event) {
     event.preventDefault();
     const finalPilihan = document.querySelector('input[name="final_pilihan"]:checked')?.value || document.getElementById('final_pilihan').value;
-    
+
     if (!finalPilihan) {
       alert("Harap pilih salah satu pilihan!");
       return;
     }
-    
-    halo.textContent = `Hallo, nama saya ${nama}, saya mempunyai sejumlah ${jml} pilihan yaitu ${pilihan.join(', ')}`;
+
+    halo.textContent = `Hallo, nama saya ${nama}, saya mempunyai sejumlah ${jml} pilihan yaitu ${userChoices.join(', ')}`;
     pilihan.textContent = `dan saya memilih ${finalPilihan}`;
   });
 });
