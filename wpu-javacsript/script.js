@@ -1,111 +1,42 @@
-const formAwal = document.getElementById('form-awal-submit');
-const formPilihan = document.getElementById('form-pilihan-submit');
-const namaInput = document.getElementById('nama');
-const jmlInput = document.getElementById('jml');
-const dynamicFields = document.getElementById('dynamic-fields');
-const namaPilihan = document.getElementById('nama-pilihan');
-const jmlPilihan = document.getElementById('jml-pilihan');
-const halo = document.getElementById('halo');
-const pilihan = document.getElementById('pilihan');
-
-// Function to add dynamic text input fields
-function addDynamicFields(jml) {
-  dynamicFields.innerHTML = ""; // Clear existing fields
-  for (let i = 1; i <= jml; i++) {
-    const label = document.createElement('label');
-    label.textContent = `Pilihan ${i}:`;
-    
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.name = `pilihan${i}`;
-    input.required = true;
-    
-    dynamicFields.appendChild(label);
-    dynamicFields.appendChild(input);
-  }
-}
-
-// Handle initial form submission
-formAwal.addEventListener('submit', function (event) {
+document.getElementById('dynamicForm').addEventListener('submit', function(event) {
   event.preventDefault();
-  const nama = namaInput.value;
-  const jml = parseInt(jmlInput.value);
+  const name = document.getElementById('name').value;
+  const choices = document.getElementById('choices').value;
+  document.getElementById('nameDisplay').textContent = name;
+  document.getElementById('choicesContainer').innerHTML = '';
 
-  namaPilihan.innerText = `Nama: ${nama}`;
-  jmlPilihan.innerText = `Jumlah Pilihan: ${jml}`;
-
-  // Clear existing dynamic fields and add new ones
-  addDynamicFields(jml);
-});
-
-/// Handle form submission after text input
-formPilihan.addEventListener('submit', function (event) {
-  event.preventDefault();
-  const userChoices = []; // Array to store user choices
-
-  // Check if any text input field is empty
-  for (let i = 1; i <= jml; i++) {
-    const input = document.getElementById(`pilihan${i}`);
-    if (!input.value) {
-      alert("Harap isi semua pilihan teks!");
-      return; // Prevent further execution if not all fields are filled
-    }
-    userChoices.push(input.value);
+  for (let i = 1; i <= choices; i++) {
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.name = `choice${i}`;
+      input.placeholder = `Pilihan ${i}`;
+      input.required = true;
+      document.getElementById('choicesContainer').appendChild(input);
   }
 
-  // Prompt user for choice format (radio or dropdown)
-  const choiceType = prompt("Pilih format pilihan: 'radio' atau 'dropdown'?");
-  if (choiceType === "radio") {
-    // Create radio buttons
-    dynamicFields.innerHTML = "";
-    for (let i = 0; i < userChoices.length; i++) {
-      const radio = document.createElement('input');
-      radio.type = 'radio';
-      radio.name = 'final_pilihan';
-      radio.value = userChoices[i];
-
-      const label = document.createElement('label');
-      label.textContent = userChoices[i];
-
-      dynamicFields.appendChild(radio);
-      dynamicFields.appendChild(label);
-      dynamicFields.appendChild(document.createElement('br'));
-    }
-  } else if (choiceType === "dropdown") {
-    // Create dropdown
-    const select = document.createElement('select');
-    select.name = 'final_pilihan';
-
-    const defaultOption = document.createElement('option');
-    defaultOption.text = "Pilih...";
-    defaultOption.value = "";
-    select.appendChild(defaultOption);
-
-    for (const option of userChoices) {
-      const optionElement = document.createElement('option');
-      optionElement.text = option;
-      optionElement.value = option;
-      select.appendChild(optionElement);
-    }
-
-    dynamicFields.innerHTML = "";
-    dynamicFields.appendChild(select);
-  } else {
-    alert("Format pilihan tidak valid!");
-    return; // Prevent further execution if user enters invalid format
-  }
-
-  // Handle final submission after choosing radio or dropdown option
-  formPilihan.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const finalPilihan = document.querySelector('input[name="final_pilihan"]:checked')?.value || document.getElementById('final_pilihan').value;
-
-    if (!finalPilihan) {
-      alert("Harap pilih salah satu pilihan!");
-      return;
-    }
-
-    halo.textContent = `Hallo, nama saya ${nama}, saya mempunyai sejumlah ${jml} pilihan yaitu ${userChoices.join(', ')}`;
-    pilihan.textContent = `dan saya memilih ${finalPilihan}`;
+  const profileImage = document.getElementById('profilePic').src; // Mendapatkan URL gambar profil
+  const submitButton = document.createElement('button');
+  submitButton.type = 'button';
+  submitButton.textContent = 'Submit';
+  submitButton.addEventListener('click', function() {
+      let choicesText = '';
+      for (let i = 1; i <= choices; i++) {
+          const choice = document.querySelector(`input[name="choice${i}"]`).value;
+          choicesText += `, ${choice}`;
+      }
+      document.getElementById('result').textContent = `Hallo, nama saya ${name}, saya mempunyai sejumlah ${choices} pilihan yaitu ${choicesText.substring(2)}`;
+      document.getElementById('profilePic').src = profileImage; // Setel kembali gambar profil setelah menampilkan hasil
   });
+  document.getElementById('choicesContainer').appendChild(submitButton);
 });
+
+function previewProfileImage(event) {
+  var input = event.target;
+  var reader = new FileReader();
+  reader.onload = function(){
+      var dataURL = reader.result;
+      var profileImage = document.getElementById('profilePic');
+      profileImage.src = dataURL;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
